@@ -3,6 +3,7 @@ package test
 import (
 	"net/http"
 
+	templateError "backend_proj_os/errors"
 	testService "backend_proj_os/services/test"
 
 	"github.com/gin-gonic/gin"
@@ -16,8 +17,10 @@ func Ping(c *gin.Context) {
 
 func TestModel(c *gin.Context) {
 	if response, err := testService.GetAllData(); err != nil {
-		c.JSON(500, err)
+		statusCode, errResponse := templateError.GetErrorResponse(err)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+
 	} else {
-		c.JSON(200, response)
+		c.JSON(http.StatusOK, response)
 	}
 }
