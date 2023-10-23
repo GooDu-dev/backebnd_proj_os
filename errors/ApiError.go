@@ -78,6 +78,28 @@ func (e *HttpError) ErrorResponse() (int, ApiErrorResponse) {
 		}
 	}
 }
+func GetErrorResponse(e error) (int, ApiErrorResponse) {
+	if statusCode, ok := HttpStatusCode[e]; ok {
+		if customCode, ok := CustomCode[e]; ok {
+			if thMessage, ok := ThMessages[e]; ok {
+				if enMessage, ok := EnMessages[e]; ok {
+					return statusCode, ApiErrorResponse{
+						Code:      customCode,
+						Error:     e.Error(),
+						ThMessage: thMessage,
+						EnMessage: enMessage,
+					}
+				}
+			}
+		}
+	}
+	return InternalServerError.StatusCode(), ApiErrorResponse{
+		Code:      InternalServerError.Code(),
+		Error:     InternalServerError.Error(),
+		ThMessage: InternalServerError.ThMessage(),
+		EnMessage: InternalServerError.EnMessage(),
+	}
+}
 
 var (
 	InternalServerError ApiError = New("internal_server_error")
