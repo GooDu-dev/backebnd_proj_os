@@ -47,10 +47,107 @@ type MovieBasicDetailResponse struct {
 var Sample_data = []Movie{
 	Movie{
 		ID:           1,
-		Name:         "",
+		Name:         "batman",
 		Description:  "",
-		Rating:       0,
-		DirectorName: "kayato",
+		Rating:       9,
+		DirectorName: "santana",
+		Category: []MovieCategory{
+			MovieCategory{
+				Name:        "action",
+				Description: "",
+			},
+		},
+		TrailerLink: "",
+		Views:       9,
+		MovieSeason: []MovieSeason{
+			MovieSeason{
+				SeasonID: 1,
+				MovieDetails: []MovieDetail{
+					MovieDetail{
+						EpisodeID:   1,
+						Title:       "",
+						Description: "",
+						Video_link:  "",
+					},
+				},
+			},
+		},
+		CreatedBy: "backend_proj_os",
+		CreatedAt: "",
+		UpdatedBy: nil,
+		UpdatedAt: nil,
+	},
+	Movie{
+		ID:           2,
+		Name:         "your name",
+		Description:  "",
+		Rating:       9,
+		DirectorName: "yamoto chinkai",
+		Category: []MovieCategory{
+			MovieCategory{
+				Name:        "anime",
+				Description: "",
+			},
+		},
+		TrailerLink: "",
+		Views:       20,
+		MovieSeason: []MovieSeason{
+			MovieSeason{
+				SeasonID: 1,
+				MovieDetails: []MovieDetail{
+					MovieDetail{
+						EpisodeID:   1,
+						Title:       "",
+						Description: "",
+						Video_link:  "",
+					},
+				},
+			},
+		},
+		CreatedBy: "backend_proj_os",
+		CreatedAt: "",
+		UpdatedBy: nil,
+		UpdatedAt: nil,
+	},
+	Movie{
+		ID:           3,
+		Name:         "bloodhound",
+		Description:  "",
+		Rating:       5,
+		DirectorName: "apex",
+		Category: []MovieCategory{
+			MovieCategory{
+				Name:        "game",
+				Description: "",
+			},
+		},
+		TrailerLink: "",
+		Views:       25,
+		MovieSeason: []MovieSeason{
+			MovieSeason{
+				SeasonID: 1,
+				MovieDetails: []MovieDetail{
+					MovieDetail{
+						EpisodeID:   1,
+						Title:       "",
+						Description: "",
+						Video_link:  "",
+					},
+				},
+			},
+		},
+		CreatedBy: "backend_proj_os",
+		CreatedAt: "",
+		UpdatedBy: nil,
+		UpdatedAt: nil,
+	},
+
+	Movie{
+		ID:           4,
+		Name:         "japane in the hole",
+		Description:  "",
+		Rating:       3,
+		DirectorName: "sora aoi",
 		Category: []MovieCategory{
 			MovieCategory{
 				Name:        "porno",
