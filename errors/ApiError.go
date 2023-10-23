@@ -15,7 +15,7 @@ type HttpError struct {
 }
 type ApiErrorResponse struct {
 	Code      string `json:"code"`
-	Error     string `json:"error"`
+	Error     string `json:"error"` // for dev to read
 	ThMessage string `json:"thMessage"`
 	EnMessage string `json:"enMessage"`
 }
