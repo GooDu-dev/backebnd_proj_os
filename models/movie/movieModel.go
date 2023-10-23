@@ -6,10 +6,9 @@ type Movie struct {
 	Description  string          `json:"description"`
 	Rating       int             `json:"rating"`
 	DirectorName string          `json:"directorName"`
+	TrailerLink  string          `json:"trailerLink"`
 	Category     []MovieCategory `json:"category"`
-	Budget       int             `json:"budget"`
 	Views        int             `json:"views"`
-	TailorLink   string          `json:"tailorLink"`
 	MovieSeason  []MovieSeason   `json:"movieSeason"`
 	CreatedBy    string          `json:"createdBy"`
 	CreatedAt    string          `json:"createdAt"`
@@ -42,7 +41,7 @@ type MovieBasicDetailResponse struct {
 	DirectorName string          `json:"directorName"`
 	Category     []MovieCategory `json:"movieCategory"`
 	Views        int             `json:"views"`
-	TailorLink   string          `json:"tailor_link"`
+	TrailerLink  string          `json:"trailerLink"`
 }
 
 var Sample_data = []Movie{
@@ -51,16 +50,15 @@ var Sample_data = []Movie{
 		Name:         "",
 		Description:  "",
 		Rating:       0,
-		DirectorName: "",
+		DirectorName: "kayato",
 		Category: []MovieCategory{
 			MovieCategory{
-				Name:        "",
+				Name:        "porno",
 				Description: "",
 			},
 		},
-		Budget:     0,
-		Views:      0,
-		TailorLink: "",
+		TrailerLink: "",
+		Views:       0,
 		MovieSeason: []MovieSeason{
 			MovieSeason{
 				SeasonID: 1,
