@@ -1,4 +1,4 @@
-package models
+package movies
 
 type Movie struct {
 	ID           int             `json:"id"`
@@ -9,7 +9,7 @@ type Movie struct {
 	TrailerLink  string          `json:"trailerLink"`
 	Category     []MovieCategory `json:"category"`
 	Views        int             `json:"views"`
-	MovieSeason  []MovieSeason   `json:"movieSeason"`
+	MovieSeasons []MovieSeasons  `json:"movieSeasons"`
 	CreatedBy    string          `json:"createdBy"`
 	CreatedAt    string          `json:"createdAt"`
 	UpdatedBy    *string         `json:"updatedBy"`
@@ -21,7 +21,7 @@ type MovieCategory struct {
 	Description string `json:"description"`
 }
 
-type MovieSeason struct {
+type MovieSeasons struct {
 	SeasonID     int           `json:"id"`
 	MovieDetails []MovieDetail `json:"movieDetails"`
 }
@@ -39,7 +39,7 @@ type MovieBasicDetailResponse struct {
 	Description  string          `json:"description"`
 	Rating       int             `json:"rating"`
 	DirectorName string          `json:"directorName"`
-	Category     []MovieCategory `json:"movieCategory"`
+	Category     []MovieCategory `json:"Category"`
 	Views        int             `json:"views"`
 	TrailerLink  string          `json:"trailerLink"`
 }
@@ -59,8 +59,8 @@ var Sample_data = []Movie{
 		},
 		TrailerLink: "",
 		Views:       9,
-		MovieSeason: []MovieSeason{
-			MovieSeason{
+		MovieSeasons: []MovieSeasons{
+			MovieSeasons{
 				SeasonID: 1,
 				MovieDetails: []MovieDetail{
 					MovieDetail{
@@ -91,8 +91,8 @@ var Sample_data = []Movie{
 		},
 		TrailerLink: "",
 		Views:       20,
-		MovieSeason: []MovieSeason{
-			MovieSeason{
+		MovieSeasons: []MovieSeasons{
+			MovieSeasons{
 				SeasonID: 1,
 				MovieDetails: []MovieDetail{
 					MovieDetail{
@@ -123,8 +123,8 @@ var Sample_data = []Movie{
 		},
 		TrailerLink: "",
 		Views:       25,
-		MovieSeason: []MovieSeason{
-			MovieSeason{
+		MovieSeasons: []MovieSeasons{
+			MovieSeasons{
 				SeasonID: 1,
 				MovieDetails: []MovieDetail{
 					MovieDetail{
@@ -156,8 +156,8 @@ var Sample_data = []Movie{
 		},
 		TrailerLink: "",
 		Views:       0,
-		MovieSeason: []MovieSeason{
-			MovieSeason{
+		MovieSeasons: []MovieSeasons{
+			MovieSeasons{
 				SeasonID: 1,
 				MovieDetails: []MovieDetail{
 					MovieDetail{

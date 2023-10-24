@@ -4,50 +4,137 @@ import (
 	templateError "backend_proj_os/errors"
 	movieService "backend_proj_os/services/movies"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-func GetTopMovies(c *gin.Context) {
-	countStr := c.Param("count")
-	count, e := strconv.Atoi(countStr)
-	if e != nil {
-		c.JSON(500, e)
+func GetMovie(c *gin.Context) {
+	var request struct {
+		ID int `json:"id"`
 	}
-
-	if response, err := movieService.GetTopMovies(count); err != nil {
+	if err := c.BindJSON(&request); err != nil {
 		statusCode, errResponse := templateError.GetErrorResponse(err)
 		c.AbortWithStatusJSON(statusCode, errResponse)
-
+		return
+	}
+	if request.ID == 0 {
+		statusCode, errResponse := templateError.GetErrorResponse(templateError.MissingBodyRequest)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	}
+	if response, err := movieService.GetMovie(request.ID); err != nil {
+		statusCode, errResponse := templateError.GetErrorResponse(err)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
 	} else {
-		// c.JSON(http.StatusOK, response)
+		c.JSON(http.StatusOK, response)
+		return
+	}
+}
+
+func GetMovies(c *gin.Context) {
+	if response, err := movieService.GetMovies(); err != nil {
+		statusCode, errResponse := templateError.GetErrorResponse(err)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	} else {
+		c.JSON(http.StatusOK, response)
+	}
+}
+
+func GetMoviesByTitle(c *gin.Context) {
+	var request struct {
+		Title string `json:"title"`
+	}
+	err := c.BindJSON(&request)
+	if err != nil {
+		statusCode, errResponse := templateError.GetErrorResponse(templateError.InvalidBodyRequest)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	}
+	if request.Title == "" {
+		statusCode, errResponse := templateError.GetErrorResponse(templateError.MissingBodyRequest)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	}
+	if response, err := movieService.GetMoviesByTitle(request.Title); err != nil {
+		statusCode, errResponse := templateError.GetErrorResponse(err)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	} else {
+		c.JSON(http.StatusOK, response)
+	}
+}
+
+func GetTopMovies(c *gin.Context) {
+	var request struct {
+		Count int `json:"count"`
+	}
+	err := c.BindJSON(&request)
+	if err != nil {
+		statusCode, errResponse := templateError.GetErrorResponse(templateError.InvalidBodyRequest)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	}
+	if request.Count == 0 {
+		statusCode, errResponse := templateError.GetErrorResponse(templateError.MissingBodyRequest)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	}
+
+	if response, err := movieService.GetTopMovies(request.Count); err != nil {
+		statusCode, errResponse := templateError.GetErrorResponse(err)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	} else {
 		c.JSON(http.StatusOK, response)
 	}
 }
 
 func GetMoviesByCategory(c *gin.Context) {
-	catName := c.Param("categoryName")
-
-	if response, err := movieService.GetMoviesByCategory(catName); err != nil {
+	var request struct {
+		Category string `json:"category"`
+	}
+	err := c.BindJSON(&request)
+	if err != nil {
+		statusCode, errResponse := templateError.GetErrorResponse(templateError.InvalidBodyRequest)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	}
+	if request.Category == "" {
+		statusCode, errResponse := templateError.GetErrorResponse(templateError.MissingBodyRequest)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	}
+	if response, err := movieService.GetMoviesByCategory(request.Category); err != nil {
 		statusCode, errResponse := templateError.GetErrorResponse(err)
 		c.AbortWithStatusJSON(statusCode, errResponse)
-
+		return
 	} else {
-		// c.JSON(http.StatusOK, response)
 		c.JSON(http.StatusOK, response)
 	}
 }
 
 func GetMoviesByDirectorName(c *gin.Context) {
-	directorName := c.Param("directorName")
-
-	if response, err := movieService.GetMoviesByDirector(directorName); err != nil {
+	var request struct {
+		Director string `json:"directorName"`
+	}
+	err := c.BindJSON(&request)
+	if err != nil {
+		statusCode, errResponse := templateError.GetErrorResponse(templateError.InvalidBodyRequest)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	}
+	if request.Director == "" {
+		statusCode, errResponse := templateError.GetErrorResponse(templateError.MissingBodyRequest)
+		c.AbortWithStatusJSON(statusCode, errResponse)
+		return
+	}
+	if response, err := movieService.GetMoviesByDirector(request.Director); err != nil {
 		statusCode, errResponse := templateError.GetErrorResponse(err)
 		c.AbortWithStatusJSON(statusCode, errResponse)
-
+		return
 	} else {
-		// c.JSON(http.StatusOK, response)
 		c.JSON(http.StatusOK, response)
 	}
 }

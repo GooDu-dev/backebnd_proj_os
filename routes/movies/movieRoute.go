@@ -8,8 +8,12 @@ import (
 )
 
 func MoviesRouter(router *gin.Engine) {
-	path := "/movies"
-	router.GET(path+"/top/:count", moviesController.GetTopMovies)
-	router.GET(path+"/category/:categoryName", moviesController.GetMoviesByCategory)
-	router.GET(path+"/director/:directorName", moviesController.GetMoviesByDirectorName)
+	paths := "/movies"
+	path := "/movie"
+	router.GET(path+"/search", moviesController.GetMovie)
+	router.GET(paths+"/search", moviesController.GetMovies)
+	router.GET(paths+"/search/title", moviesController.GetMoviesByTitle)
+	router.GET(paths+"/top", moviesController.GetTopMovies)
+	router.GET(paths+"/search/category", moviesController.GetMoviesByCategory)
+	router.GET(paths+"/search/director", moviesController.GetMoviesByDirectorName)
 }

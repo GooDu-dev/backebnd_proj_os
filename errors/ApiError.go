@@ -103,17 +103,37 @@ func GetErrorResponse(e error) (int, ApiErrorResponse) {
 
 var (
 	InternalServerError ApiError = New("internal_server_error")
+	DataNotFound        ApiError = New("data_not_found")
+	InvalidBodyRequest  ApiError = New("invalid_body_request")
+	MissingBodyRequest  ApiError = New("missing_body_request")
+	PageNotFound        ApiError = New("page_not_found")
 )
 
 var CustomCode = map[error]string{
 	InternalServerError: "10000",
+	DataNotFound:        "10001",
+	InvalidBodyRequest:  "20000",
+	MissingBodyRequest:  "20001",
+	PageNotFound:        "20002",
 }
 var HttpStatusCode = map[error]int{
 	InternalServerError: 500,
+	DataNotFound:        404,
+	InvalidBodyRequest:  400,
+	MissingBodyRequest:  400,
+	PageNotFound:        404,
 }
 var ThMessages = map[error]string{
 	InternalServerError: "เกิดข้อผิดผลาดขึ้นที่เซิฟเวอร์  กรุณาลองใหม่อีกครั้งในภายหลัง",
+	DataNotFound:        "ไม่พบข้อมูลที่ต้องการ  กรุณาตรวจสอบอีกครั้งก่อนทำการส่งใหม่",
+	InvalidBodyRequest:  "ข้อมูลไม่ตรงตามเงื่อนไข  กรุณาตรวจสอบความถูกต้องก่อนลองใหม่อีกครั้ง",
+	MissingBodyRequest:  "ข้อมูลไม่ครบจามเงื่อนไข  กรุณาตรวจสอบความถูกต้องก่อนลองใหม่อีกครั้ง",
+	PageNotFound:        "ไม่พบหน้าเว็บที่ต้องการ  กรุณาเช็ค url ของท่านและลองใหม่อีกครั้ง",
 }
 var EnMessages = map[error]string{
 	InternalServerError: "Server error. Please try again later",
+	DataNotFound:        "Data is not exist. Please check your request and sent it again later.",
+	InvalidBodyRequest:  "Invalid body request. Please check it and try again.",
+	MissingBodyRequest:  "Missing body content. Please check it and try again.",
+	PageNotFound:        "Page not found. Please check your url and try again.",
 }

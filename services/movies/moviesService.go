@@ -5,7 +5,8 @@ import (
 	"strings"
 
 	// testModel "backend_proj_os/models/test"
-	movieModel "backend_proj_os/models/movie"
+	templateError "backend_proj_os/errors"
+	movieModel "backend_proj_os/models/movies"
 )
 
 // var data = []movieModel.MovieBasicDetailResponse{
@@ -23,9 +24,69 @@ import (
 // 	}
 // }
 
+func GetMovie(id int) (*movieModel.Movie, error) {
+	data := movieModel.Sample_data
+	for _, datum := range data {
+		if datum.ID == id {
+			return &datum, nil
+		}
+	}
+	return nil, templateError.DataNotFound
+}
+
+func GetMovies() (*[]movieModel.MovieBasicDetailResponse, error) {
+	data := movieModel.Sample_data
+	size := len(data)
+
+	if size == 0 {
+		return nil, templateError.DataNotFound
+	}
+
+	response := make([]movieModel.MovieBasicDetailResponse, size)
+	for i, datum := range data {
+		response[i] = movieModel.MovieBasicDetailResponse{
+			ID:           datum.ID,
+			Name:         datum.Name,
+			Description:  datum.Description,
+			Rating:       datum.Rating,
+			DirectorName: datum.DirectorName,
+			Category:     datum.Category,
+			Views:        datum.Views,
+			TrailerLink:  datum.TrailerLink,
+		}
+	}
+
+	return &response, nil
+}
+
+func GetMoviesByTitle(name string) ([]movieModel.MovieBasicDetailResponse, error) {
+	data := movieModel.Sample_data
+
+	if len(data) == 0 {
+		return nil, templateError.DataNotFound
+	}
+
+	var response []movieModel.MovieBasicDetailResponse
+	for _, datum := range data {
+		if datum.Name == name {
+			response = append(response, movieModel.MovieBasicDetailResponse{
+				ID:           datum.ID,
+				Name:         datum.Name,
+				Description:  datum.Description,
+				Rating:       datum.Rating,
+				DirectorName: datum.DirectorName,
+				Category:     datum.Category,
+				Views:        datum.Views,
+				TrailerLink:  datum.TrailerLink,
+			})
+		}
+	}
+	return response, nil
+}
+
 func GetTopMovies(count int) ([]movieModel.MovieBasicDetailResponse, error) {
 	// var tops [count]movieModel.MovieBasicDetailResponse
-	tops := make([]movieModel.MovieBasicDetailResponse, 5)
+	tops := make([]movieModel.MovieBasicDetailResponse, count+1)
 	var all = movieModel.Sample_data
 
 	// * not good behavior to sort all data without permission
@@ -55,7 +116,7 @@ func GetTopMovies(count int) ([]movieModel.MovieBasicDetailResponse, error) {
 			tops[j] = cur
 
 			j++
-			j %= 5
+			j %= count + 1
 		}
 
 	}
